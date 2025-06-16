@@ -1,0 +1,6 @@
+@cookware_react_backend_HostAddress = http://localhost:5157
+
+GET {{cookware_react_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
