@@ -12,7 +12,7 @@ using cookware_react_backend.Context;
 namespace cookware_react_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250615233852_init")]
+    [Migration("20250616081442_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -47,6 +47,52 @@ namespace cookware_react_backend.Migrations
                     b.ToTable("Admins");
                 });
 
+            modelBuilder.Entity("cookware_react_backend.Models.DetailsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Capacity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Care")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Dimensions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Weight")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Details");
+                });
+
             modelBuilder.Entity("cookware_react_backend.Models.ProductModel", b =>
                 {
                     b.Property<int>("Id")
@@ -54,6 +100,9 @@ namespace cookware_react_backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Colors")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -94,6 +143,34 @@ namespace cookware_react_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("cookware_react_backend.Models.ReviewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReviewText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reviews");
                 });
 #pragma warning restore 612, 618
         }

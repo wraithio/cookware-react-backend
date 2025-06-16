@@ -17,6 +17,8 @@ namespace cookware_react_backend.Context
 
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<AdminModel> Admins { get; set; }
+        public DbSet<ReviewModel> Reviews { get; set; }
+        public DbSet<DetailsModel> Details { get; set; }
 
 
     }

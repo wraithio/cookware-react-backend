@@ -27,6 +27,29 @@ namespace cookware_react_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Details",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Capacity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Dimensions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Weight = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Care = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<int>(type: "int", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Details", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -38,6 +61,7 @@ namespace cookware_react_backend.Migrations
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsOnSale = table.Column<bool>(type: "bit", nullable: false),
                     Pictures = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Colors = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<int>(type: "int", nullable: false),
@@ -48,6 +72,23 @@ namespace cookware_react_backend.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -57,7 +98,13 @@ namespace cookware_react_backend.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
+                name: "Details");
+
+            migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
         }
     }
 }

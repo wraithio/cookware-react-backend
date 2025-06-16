@@ -20,10 +20,7 @@ namespace cookware_react_backend.Controllers
         }
 
         [HttpGet("GetAllAdmins")]
-        public List<AdminModel> GetAllAdmins()
-        {
-            return _adminServices.SeeAllAdmins();
-        }
+        public async Task<List<AdminModel>> GetAllAdmins() => await _adminServices.SeeAllAdmins();
 
         [HttpPost("CreateAdmin")]
         public async Task<IActionResult> CreateAdmin([FromBody] AdminDTO admin)

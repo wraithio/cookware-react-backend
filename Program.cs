@@ -1,4 +1,5 @@
 using cookware_react_backend.Context;
+using cookware_react_backend.Models;
 using cookware_react_backend.Services;
 using Microsoft.EntityFrameworkCore;
 // using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ProductServices>();
 builder.Services.AddScoped<AdminServices>();
+builder.Services.AddScoped<ReviewModel>();
+builder.Services.AddScoped<DetailsModel>();
 builder.Services.AddDbContext<DataContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection")));
 

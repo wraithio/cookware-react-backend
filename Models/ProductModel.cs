@@ -28,7 +28,8 @@ namespace cookware_react_backend.Models
         public bool IsOnSale { get; set; }
 
         public string[]? Pictures { get; set; }
-
+        
+        public string[]? Colors { get; set; }
         public int CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }

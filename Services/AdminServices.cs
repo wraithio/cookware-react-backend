@@ -23,10 +23,7 @@ namespace cookware_react_backend.Services
             _config = config;
         }
 
-        public List<AdminModel> SeeAllAdmins()
-        {
-            return _dataContext.Admins.ToList();
-        }
+        public async Task<List<AdminModel>> SeeAllAdmins() => await _dataContext.Admins.ToListAsync();
 
         public async Task<bool> CreateAdmin(AdminDTO newUser)
         {
@@ -44,7 +41,7 @@ namespace cookware_react_backend.Services
 
         public async Task<string> Login(int passkey)
         {
-            AdminModel? foundUser =  await _dataContext.Admins.SingleOrDefaultAsync();
+            AdminModel? foundUser = await _dataContext.Admins.SingleOrDefaultAsync();
 
             if (foundUser == null) return null;
             if (!VerifyPassword(passkey.ToString(), foundUser.Salt, foundUser.Hash)) return null;

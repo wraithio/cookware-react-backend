@@ -28,7 +28,7 @@ namespace cookware_react_backend.Services
                 .ToListAsync();
         }
         public async Task<ProductModel?> GetProductByIdAsync(int id) => await _dataContext.Products.Where(p => p.Id == id)
-                .OrderByDescending(p => p.CreatedDate)
+                .OrderByDescending(p => p.ModifiedDate)
                 .FirstOrDefaultAsync();
 
         public async Task<bool> AddProductAsync(ProductModel product)
@@ -39,6 +39,7 @@ namespace cookware_react_backend.Services
             return await _dataContext.SaveChangesAsync() != 0;
         }
 
+        //used to archive a product
         public async Task<bool> UpdateProductEntryAsync(ProductModel product)
         {
             var existingProduct = await _dataContext.Products
