@@ -1,7 +1,10 @@
+using System.Text;
 using cookware_react_backend.Context;
 using cookware_react_backend.Models;
 using cookware_react_backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 // using Microsoft.AspNetCore.Authentication.JwtBearer;
 // using Microsoft.IdentityModel.Tokens;
 
@@ -29,6 +32,34 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
+
+var secretKey = builder.Configuration["JWT:key"];
+var signingCredentials = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
+
+// our secret key should match the secret key that we use to issue the token
+builder.Services.AddAuthentication(options => 
+{
+    // this line of code will set the authentification behaviour of our JWt Bearer
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    // sets the default behaviour for when our auth fails
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer( options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true, //check if the tokens issuer is valid
+        ValidateAudience = true, //check if the token's audience is valid  
+        ValidateLifetime = true, //ensures that our tokens haven't expired
+        ValidateIssuerSigningKey = true, //checking the tokens signature is valid
+
+        ValidIssuer = "https://cookwareinterfacebackend-cge2amavdkbxgqcw.westus-01.azurewebsites.net/",
+        ValidAudience = "https://cookwareinterfacebackend-cge2amavdkbxgqcw.westus-01.azurewebsites.net/",
+        IssuerSigningKey = signingCredentials
+    };
+});
+//now this is set up, you can make a call to an endpoint that is protected by [Authoruze] by adding a "Authorization" header as the Key with a value of "Bearer (your token here)"
 
 var app = builder.Build();
 
