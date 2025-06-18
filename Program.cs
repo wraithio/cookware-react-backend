@@ -18,22 +18,23 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ProductServices>();
 builder.Services.AddScoped<AdminServices>();
-builder.Services.AddScoped<ReviewModel>();
-builder.Services.AddScoped<DetailsModel>();
+builder.Services.AddScoped<ReviewServices>();
+builder.Services.AddScoped<DetailsServices>();
 builder.Services.AddDbContext<DataContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection")));
 
 
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
+builder.Services.AddCors(options =>{
+    options.AddPolicy("AllowAll",
+    policy =>{
+        policy.AllowAnyOrigin().
+            AllowAnyHeader().
+            AllowAnyMethod();
+    });
 });
 
-var secretKey = builder.Configuration["JWT:key"];
+var secretKey = builder.Configuration["JWT:Key"];
 var signingCredentials = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
 
@@ -54,8 +55,8 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true, //ensures that our tokens haven't expired
         ValidateIssuerSigningKey = true, //checking the tokens signature is valid
 
-        ValidIssuer = "https://cookwareinterfacebackend-cge2amavdkbxgqcw.westus-01.azurewebsites.net/",
-        ValidAudience = "https://cookwareinterfacebackend-cge2amavdkbxgqcw.westus-01.azurewebsites.net/",
+        ValidIssuer = "https://robinsonblog-h6fyg9ghabbbf4a2.westus-01.azurewebsites.net",
+        ValidAudience = "https://robinsonblog-h6fyg9ghabbbf4a2.westus-01.azurewebsites.net",
         IssuerSigningKey = signingCredentials
     };
 });
@@ -72,7 +73,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 

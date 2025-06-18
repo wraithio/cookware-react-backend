@@ -12,7 +12,7 @@ using cookware_react_backend.Context;
 namespace cookware_react_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250616081442_init")]
+    [Migration("20250618062930_init")]
     partial class init
     {
         /// <inheritdoc />
