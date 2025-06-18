@@ -25,9 +25,11 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnecti
 
 
 
-builder.Services.AddCors(options =>{
+builder.Services.AddCors(options =>
+{
     options.AddPolicy("AllowAll",
-    policy =>{
+    policy =>
+    {
         policy.AllowAnyOrigin().
             AllowAnyHeader().
             AllowAnyMethod();
@@ -39,14 +41,14 @@ var signingCredentials = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretK
 
 
 // our secret key should match the secret key that we use to issue the token
-builder.Services.AddAuthentication(options => 
+builder.Services.AddAuthentication(options =>
 {
     // this line of code will set the authentification behaviour of our JWt Bearer
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     // sets the default behaviour for when our auth fails
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddJwtBearer( options =>
+.AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -64,9 +66,12 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
