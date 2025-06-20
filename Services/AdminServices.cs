@@ -56,8 +56,8 @@ namespace cookware_react_backend.Services
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var tokenOptions = new JwtSecurityToken(
-                issuer: "https://robinsonblog-h6fyg9ghabbbf4a2.westus-01.azurewebsites.net/",
-                audience: "https://robinsonblog-h6fyg9ghabbbf4a2.westus-01.azurewebsites.net/",
+                issuer: "https://cookwareinterface-drgnfkhdevbvd6gw.westus-01.azurewebsites.net/",
+                audience: "https://cookwareinterface-drgnfkhdevbvd6gw.westus-01.azurewebsites.net/",
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: signingCredentials
