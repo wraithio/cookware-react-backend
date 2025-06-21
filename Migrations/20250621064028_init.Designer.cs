@@ -12,7 +12,7 @@ using cookware_react_backend.Context;
 namespace cookware_react_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250620235337_init")]
+    [Migration("20250621064028_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -33,8 +33,17 @@ namespace cookware_react_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");

@@ -51,5 +51,15 @@ namespace cookware_react_backend.Controllers
             if (result) return Ok(new { Message = "Admin deleted successfully" });
             return NotFound(new { Message = "Admin not found" });
         }
+
+        [HttpPut("DeactivateAdmin/{id}")]
+        public async Task<IActionResult> DeactivateAdmin(int id)
+        {
+            if (id <= 0) return BadRequest(new { Message = "Invalid admin ID" });
+
+            var result = await _adminServices.DeactivateAdmin(id);
+            if (result) return Ok(new { Message = "Admin deactivated successfully" });
+            return NotFound(new { Message = "Admin not found" });
+        }
     }
 }

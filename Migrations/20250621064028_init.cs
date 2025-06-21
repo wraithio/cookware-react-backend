@@ -19,7 +19,10 @@ namespace cookware_react_backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salt = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Hash = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Hash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

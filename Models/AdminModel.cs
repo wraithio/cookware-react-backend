@@ -11,5 +11,8 @@ namespace cookware_react_backend.Models
         public string? Username { get; set; }
         public string? Salt { get; set; }
         public string? Hash { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastLogin { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

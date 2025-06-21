@@ -33,7 +33,9 @@ namespace cookware_react_backend.Services
             {
                 Username = newUser.Username,
                 Salt = hashedPassword.Salt,
-                Hash = hashedPassword.Hash
+                Hash = hashedPassword.Hash,
+                CreatedDate = DateTime.Now,
+                LastLogin = DateTime.Now
             };
             await _dataContext.Admins.AddAsync(userToAdd);
             return await _dataContext.SaveChangesAsync() != 0;
@@ -45,8 +47,21 @@ namespace cookware_react_backend.Services
 
             if (foundUser == null) return null;
             if (!VerifyPassword(passkey.ToString(), foundUser.Salt, foundUser.Hash)) return null;
+            foundUser.LastLogin = DateTime.UtcNow;
+            _dataContext.Admins.Update(foundUser);
+            await _dataContext.SaveChangesAsync();
             return GenerateJWTToken(new List<Claim>());
         }
+
+        public async Task<bool> DeactivateAdmin(int id)
+        {
+            AdminModel? userToDeactivate = await _dataContext.Admins.FindAsync(id);
+            if (userToDeactivate == null) return false;
+            userToDeactivate.IsActive = false;
+            _dataContext.Admins.Update(userToDeactivate);
+            return await _dataContext.SaveChangesAsync() != 0;
+        }
+
 
         private string GenerateJWTToken(List<Claim> claims)
         {

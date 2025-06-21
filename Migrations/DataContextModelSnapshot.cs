@@ -30,8 +30,17 @@ namespace cookware_react_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");
