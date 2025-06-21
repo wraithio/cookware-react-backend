@@ -43,14 +43,20 @@ namespace cookware_react_backend.Services
 
         public async Task<string> Login(int passkey)
         {
-            AdminModel? foundUser = await _dataContext.Admins.SingleOrDefaultAsync();
+            AdminModel? foundUser = await _dataContext.Admins.FirstOrDefaultAsync();
 
             if (foundUser == null) return null;
             if (!VerifyPassword(passkey.ToString(), foundUser.Salt, foundUser.Hash)) return null;
-            foundUser.LastLogin = DateTime.UtcNow;
-            _dataContext.Admins.Update(foundUser);
-            await _dataContext.SaveChangesAsync();
             return GenerateJWTToken(new List<Claim>());
+        }
+
+        public async Task<bool> UpdateLoginDate(string username)
+        {
+            AdminModel? userToUpdate = await _dataContext.Admins.SingleOrDefaultAsync(user => user.Username == username);
+            if (userToUpdate == null) return false;
+            userToUpdate.LastLogin = DateTime.UtcNow;
+            _dataContext.Admins.Update(userToUpdate);
+            return await _dataContext.SaveChangesAsync() != 0;
         }
 
         public async Task<bool> DeactivateAdmin(int id)

@@ -61,5 +61,15 @@ namespace cookware_react_backend.Controllers
             if (result) return Ok(new { Message = "Admin deactivated successfully" });
             return NotFound(new { Message = "Admin not found" });
         }
+
+        [HttpPut("UpdateLoginDate/{username}")]
+        public async Task<IActionResult> UpdateLoginDate(string username)
+        {
+            if (string.IsNullOrEmpty(username)) return BadRequest(new { Message = "Invalid username" });
+
+            var result = await _adminServices.UpdateLoginDate(username);
+            if (result) return Ok(new { Message = "Login date updated successfully" });
+            return NotFound(new { Message = "Admin not found" });
+        }
     }
 }
