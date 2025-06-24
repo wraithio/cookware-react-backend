@@ -42,6 +42,14 @@ namespace cookware_react_backend.Controllers
             return NotFound(new { Message = "Product not found" });
         }
 
+        [HttpGet("GetProductByName/{name}")]
+        public async Task<IActionResult> GetProductByName(string name)
+        {
+            var post = await _productServices.GetProductByProductNameAsync(name);
+            if (post != null) return Ok(post);
+            return NotFound(new { Message = "Product not found" });
+        }
+
         [HttpPost("AddProduct")]
         public async Task<IActionResult> AddProduct([FromBody] ProductModel product)
         {

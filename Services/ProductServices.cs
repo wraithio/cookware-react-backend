@@ -30,6 +30,10 @@ namespace cookware_react_backend.Services
         public async Task<ProductModel?> GetProductByIdAsync(int id) => await _dataContext.Products.Where(p => p.Id == id)
                 .OrderByDescending(p => p.ModifiedDate)
                 .FirstOrDefaultAsync();
+                
+        public async Task<ProductModel?> GetProductByProductNameAsync(string name) => await _dataContext.Products.Where(p => p.Name == name)
+                .OrderByDescending(p => p.ModifiedDate)
+                .FirstOrDefaultAsync();
 
         public async Task<bool> AddProductAsync(ProductModel product)
         {
