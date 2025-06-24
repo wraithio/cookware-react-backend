@@ -20,6 +20,7 @@ builder.Services.AddScoped<ProductServices>();
 builder.Services.AddScoped<AdminServices>();
 builder.Services.AddScoped<ReviewServices>();
 builder.Services.AddScoped<DetailsServices>();
+builder.Services.AddSingleton<BlobServices>();
 builder.Services.AddDbContext<DataContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection")));
 
