@@ -15,6 +15,7 @@ namespace cookware_react_backend.Models
         [Required]
         [MaxLength(255)]
         public string? Name { get; set; }
+        public string? Category { get; set; }
 
         [MaxLength(500)]
         public string? ShortDescription { get; set; }
