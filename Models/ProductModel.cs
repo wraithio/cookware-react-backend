@@ -30,6 +30,7 @@ namespace cookware_react_backend.Models
         public string[]? Pictures { get; set; }
         
         public string[]? Colors { get; set; }
+        public string[]? ColorHexCodes { get; set; }
         public int CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
