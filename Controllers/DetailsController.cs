@@ -43,5 +43,13 @@ namespace cookware_react_backend.Controllers
             if (result) return Ok(new { Message = "Details added successfully" });
             return BadRequest(new { Message = "Failed to add details" });
         }
+
+        [HttpDelete("HardDeleteDetails/{id}")]
+        public async Task<IActionResult> HardDeleteDetails(int id)
+        {
+            var result = await _detailsServices.HardDeleteDetailsEntriesAsync(id);
+            if (result) return Ok(new { Message = "Details deleted successfully" });
+            return BadRequest(new { Message = "Failed to delete details" });
+        }
     }
 }

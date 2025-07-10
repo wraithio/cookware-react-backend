@@ -22,7 +22,7 @@ namespace cookware_react_backend.Services
             .Where(d => d.ProductId == id)
             .OrderByDescending(d => d.CreatedDate)
             .FirstOrDefaultAsync();
- 
+
         public async Task<bool> AddDetailsAsync(DetailsModel details)
         {
             details.CreatedDate = DateTime.UtcNow;
@@ -30,5 +30,19 @@ namespace cookware_react_backend.Services
             await _dataContext.Details.AddAsync(details);
             return await _dataContext.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> HardDeleteDetailsEntriesAsync(int id)
+        {
+            var details = await _dataContext.Details
+        .Where(p => p.Id == id)
+        .OrderByDescending(p => p.CreatedDate)
+        .ToListAsync();
+            if (!details.Any()) return false;
+
+            _dataContext.Details.RemoveRange(details);
+            return await _dataContext.SaveChangesAsync() > 0;
+        }
     }
+    
+
 }
