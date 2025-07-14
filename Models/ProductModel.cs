@@ -11,6 +11,7 @@ namespace cookware_react_backend.Models
     {
         [Key]
         public int Id { get; set; }
+        public int ForeignKey { get; set; }
 
         [Required]
         [MaxLength(255)]

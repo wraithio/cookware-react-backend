@@ -27,9 +27,9 @@ namespace cookware_react_backend.Controllers
         }
 
         [HttpGet("GetDetailsByProductId/{id}")]
-        public async Task<IActionResult> GetDetailsByProductId(int id)
+        public async Task<IActionResult> GetDetailsByForeignKey(int id)
         {
-            var details = await _detailsServices.GetDetailsByProductIdAsync(id);
+            var details = await _detailsServices.GetDetailsByForeignKeyAsync(id);
             if (details != null) return Ok(details);
             return NotFound(new { Message = "Details not found for the specified product ID" });
         }

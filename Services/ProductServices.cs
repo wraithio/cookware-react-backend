@@ -30,13 +30,14 @@ namespace cookware_react_backend.Services
         public async Task<ProductModel?> GetProductByIdAsync(int id) => await _dataContext.Products.Where(p => p.Id == id)
                 .OrderByDescending(p => p.ModifiedDate)
                 .FirstOrDefaultAsync();
-                
+
         public async Task<ProductModel?> GetProductByProductNameAsync(string name) => await _dataContext.Products.Where(p => p.Name == name)
                 .OrderByDescending(p => p.ModifiedDate)
                 .FirstOrDefaultAsync();
 
         public async Task<bool> AddProductAsync(ProductModel product)
         {
+            product.ForeignKey = GetNextProjectForeignKey();
             product.CreatedDate = DateTime.UtcNow;
             product.ModifiedDate = DateTime.UtcNow;
             await _dataContext.Products.AddAsync(product);
@@ -83,6 +84,28 @@ namespace cookware_react_backend.Services
                 .ToListAsync();
         }
 
+        private int GetNextProjectForeignKey()
+        {
+            int nextForeignKey = 1;
+            try
+            {
+                var mostRecentProject = _dataContext.Products
+                                                .OrderByDescending(p => p.CreatedDate) // Order by creation date to get the most recent
+                                                .FirstOrDefault();
+
+                if (mostRecentProject != null)
+                {
+                    nextForeignKey = mostRecentProject.ForeignKey + 1; // Increment the foreign key
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any database access errors (e.g., log the exception)
+                Console.WriteLine($"Error retrieving the most recent project foreign key: {ex.Message}");
+            }
+
+            return nextForeignKey;
+        }
     }
 
 

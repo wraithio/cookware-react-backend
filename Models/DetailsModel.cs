@@ -8,7 +8,7 @@ namespace cookware_react_backend.Models
     public class DetailsModel
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
+        public int ForeignKey { get; set; }
         public string? Material { get; set; }
         public string? Capacity { get; set; }
         public string? Dimensions { get; set; }

@@ -12,8 +12,8 @@ using cookware_react_backend.Context;
 namespace cookware_react_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250624232546_AddCategoryToProducts")]
-    partial class AddCategoryToProducts
+    [Migration("20250714234209_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,6 +82,9 @@ namespace cookware_react_backend.Migrations
                     b.Property<string>("Dimensions")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ForeignKey")
+                        .HasColumnType("int");
+
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
@@ -90,9 +93,6 @@ namespace cookware_react_backend.Migrations
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Weight")
                         .HasColumnType("nvarchar(max)");
@@ -127,6 +127,9 @@ namespace cookware_react_backend.Migrations
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ForeignKey")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
@@ -171,11 +174,11 @@ namespace cookware_react_backend.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ForeignKey")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");

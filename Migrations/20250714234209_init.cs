@@ -35,7 +35,7 @@ namespace cookware_react_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ForeignKey = table.Column<int>(type: "int", nullable: false),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Capacity = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Dimensions = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -58,13 +58,16 @@ namespace cookware_react_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ForeignKey = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShortDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsOnSale = table.Column<bool>(type: "bit", nullable: false),
                     Pictures = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Colors = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ColorHexCodes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<int>(type: "int", nullable: false),
@@ -82,7 +85,7 @@ namespace cookware_react_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ForeignKey = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: false),

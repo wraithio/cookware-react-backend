@@ -18,8 +18,8 @@ namespace cookware_react_backend.Services
 
         public async Task<List<DetailsModel>> GetAllDetailsAsync() => await _dataContext.Details.ToListAsync();
 
-        public async Task<DetailsModel?> GetDetailsByProductIdAsync(int id) => await _dataContext.Details
-            .Where(d => d.ProductId == id)
+        public async Task<DetailsModel?> GetDetailsByForeignKeyAsync(int id) => await _dataContext.Details
+            .Where(d => d.ForeignKey == id)
             .OrderByDescending(d => d.CreatedDate)
             .FirstOrDefaultAsync();
 

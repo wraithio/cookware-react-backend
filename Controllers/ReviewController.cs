@@ -31,7 +31,7 @@ namespace cookware_react_backend.Controllers
         [HttpGet("GetReviewsByProductId/{productId}")]
         public async Task<IActionResult> GetReviewsByProductId(int productId)
         {
-            var reviews = await _reviewServices.GetReviewsByProductIdAsync(productId);
+            var reviews = await _reviewServices.GetReviewsByForeignKeyAsync(productId);
             if (reviews != null && reviews.Count > 0)
                 return Ok(reviews);
             return NotFound(new { Message = "No reviews found for this product" });

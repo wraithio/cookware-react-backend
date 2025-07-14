@@ -18,10 +18,10 @@ namespace cookware_react_backend.Services
 
         public async Task<List<ReviewModel>> SeeAllReviewsAsync() => await _dataContext.Reviews.ToListAsync();
 
-        public async Task<List<ReviewModel>> GetReviewsByProductIdAsync(int productId)
+        public async Task<List<ReviewModel>> GetReviewsByForeignKeyAsync(int ForeignKey)
         {
             return await _dataContext.Reviews
-                .Where(r => r.ProductId == productId)
+                .Where(r => r.ForeignKey == ForeignKey)
                 .OrderByDescending(r => r.CreatedDate)
                 .ToListAsync();
         }
