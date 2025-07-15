@@ -27,10 +27,18 @@ namespace cookware_react_backend.Services
                 .Select(group => group.OrderByDescending(p => p.ModifiedDate).First()) // Get most recent from each group
                 .ToListAsync();
         }
-        public async Task<ProductModel?> GetProductByIdAsync(int id) => await _dataContext.Products.Where(p => p.Id == id)
+        public async Task<ProductModel?> GetProductByIdAsync(int id) => await _dataContext.Products.Where(p => p.ForeignKey == id)
                 .OrderByDescending(p => p.ModifiedDate)
                 .FirstOrDefaultAsync();
 
+        public async Task<List<ProductModel>> GetProductsbyCategoryAsync(string category)
+        {
+            return await _dataContext.Products
+                .Where(p => p.Category.ToLower() == category.ToLower() && p.IsArchived == false)
+                .GroupBy(p => p.Id) // Group by product ID
+                .Select(group => group.OrderByDescending(p => p.ModifiedDate).First()) // Get most recent from each group
+                .ToListAsync();
+        }
         public async Task<ProductModel?> GetProductByProductNameAsync(string name) => await _dataContext.Products.Where(p => p.Name == name)
                 .OrderByDescending(p => p.ModifiedDate)
                 .FirstOrDefaultAsync();
