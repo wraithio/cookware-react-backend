@@ -3,6 +3,7 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+mockdata.md
 # dotenv files
 .env
 
